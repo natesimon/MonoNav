@@ -2,4 +2,4 @@
 
 Code coming soon! Click "watch" to stay updated.
 
-Project page: [https://natesimon.github.io/](https://natesimon.github.io/mononav/)
+Project page: [https://natesimon.github.io/mononav](https://natesimon.github.io/mononav/)
