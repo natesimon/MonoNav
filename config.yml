@@ -1,0 +1,41 @@
+# Directory Settings
+data_dir: 'data/demo_hallway'
+save_dir_prefix: 'data/mononav-'
+# Camera Settings
+camera_num: 0 # camera number index (test with utils/test_camera.py), try (-1, 0, 1, 2, ...)
+camera_source: 'crazyflie' # used for naming files
+camera_calibration_path: 'utils/calibration/demo_intrinsics.json' # camera calibration file (for undistortion)
+
+# ZoeDepth Settings
+zoedepth_mode: "eval" # "eval" or "infer" - see ZoeDepth documentation for other settings
+num_prezoe_frames: 5 # how many times to run ZoeDepth before starting (the first few inferences are much slower)
+
+# Reconstruction settings
+filterYvals: True #this helps filter out the ground / ceiling (for planar navigation)
+filterWeights: True # this helps filter out low-weight voxels
+filterTSDF: True
+weight_threshold: 3. # determine the weight threshold for filtering (higher threshold -> fewer points)
+VoxelBlockGrid:
+  depth_scale: 1000.0 # 1000.0 is default (mm to m), scale factor for depth values during integration
+  depth_max: 7.0 # max depth to include in the reconstruction
+  trunc_voxel_multiplier: 8.0
+  device: "CUDA:0" # "CUDA:0" (faster) or "CPU:0" (if no GPU is available)
+
+# Planning Settings
+trajlib_dir: 'utils/trajlib/' # where to save & retrieve the trajectory library (motion primitives)
+# comment out goal position for undirected exploration
+goal_position: # goal position in meters
+ - -10.0 # +X RIGHT
+ - -1.0 # +Y DOWN (HEIGHT)
+ -  10.0 # +Z FORWARD
+min_dist2obs: 0.5 # minimum acceptable distance from obstacles, meters (for primitive selection)
+min_dist2goal: 1.0 # termination condition for reaching the goal, meters
+
+
+# Crazyflie Settings
+radio_uri: 'radio://0/4/2M/E7E7E7E7E7' # update the drone ID# to match your vehicle, check using cfclient
+height: 1.0 # crazyflie flight altitude, meters
+FLY_CRAZYFLIE: True # whether to actually fly the crazyflie
+# Control gain settings (TUNED FOR CRAZYFLIE)
+yvel_gain: 0.015 # yvel =  -yawrate*yvel_gain
+yawrate_gain: 1.25 # yawrate = yawrate*yawrate_gain
